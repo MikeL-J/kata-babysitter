@@ -1,0 +1,24 @@
+{
+  "name": "kata-babysitter",
+  "version": "1.0.0",
+  "description": "babysitter kata in javascript",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MikeL-J/kata-babysitter.git"
+  },
+  "author": "MikeL-J",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MikeL-J/kata-babysitter/issues"
+  },
+  "homepage": "https://github.com/MikeL-J/kata-babysitter#readme",
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "chai": "^4.1.2",
+    "mocha": "^5.1.1"
+  }
+}
