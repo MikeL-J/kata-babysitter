@@ -16,8 +16,18 @@ let isBedTimeValid = (startTime, bedTime) => {
     bedTime.getHours() == 0
 }
 
+let isEndTimeOnOrBeforeBedTime = (endTime, bedTime) => {
+  return endTime <= bedTime
+}
+
 let isStartTimeSequenceValid = (startTime, endTime, bedTime) => {
   return startTime <= endTime && startTime <= bedTime
+}
+
+let removePartialHours = (startTime) => {
+  (startTime.getMinutes() > 0 || startTime.getSeconds() > 0) ?
+    (startTime.setHours(startTime.getHours() + 1)) : startTime
+  return startTime.getHours()
 }
 
 let notifyError = (startTime, endTime, bedTime) => {
@@ -36,6 +46,8 @@ module.exports = {
   isStartTimeValid: isStartTimeValid,
   isEndTimeValid: isEndTimeValid,
   isBedTimeValid: isBedTimeValid,
+  isEndTimeOnOrBeforeBedTime: isEndTimeOnOrBeforeBedTime,
   isStartTimeSequenceValid: isStartTimeSequenceValid,
+  removePartialHours: removePartialHours,
   notifyError: notifyError
 }

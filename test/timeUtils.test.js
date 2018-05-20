@@ -27,6 +27,16 @@ describe('The babysitter time inputs', () => {
       expect(timeUtils.isStartTimeValid(startTime)).to.be.false
     })
 
+    it('rounds to the next hour if seconds not on the hour', () => {
+      startTime = new Date('May 11, 2018 18:00:01')
+      expect(timeUtils.removePartialHours(startTime)).to.equal(19)
+    })
+
+    it('rounds to the next hour if minutes not on the hour', () => {
+      startTime = new Date('May 11, 2018 18:01:00')
+      expect(timeUtils.removePartialHours(startTime)).to.equal(19)
+    })
+
     it('returns error message for invalid start time', () => {
       startTime.setHours(4)
       expect(timeUtils.notifyError(startTime, endTime, bedTime)).to.equal(startError)
@@ -48,6 +58,16 @@ describe('The babysitter time inputs', () => {
     it('is invalid if between 4:00am and 5:00pm', () => {
       endTime.setHours(5)
       expect(timeUtils.isEndTimeValid(endTime)).to.be.false
+    })
+
+    it('is end time before bed time', () => {
+      endTime = new Date('May 11, 2018 21:00:00')
+      expect(timeUtils.isEndTimeOnOrBeforeBedTime(endTime, bedTime)).to.be.true
+    })
+
+    it('is end time equal to bed time', () => {
+      endTime = new Date('May 11, 2018 22:00:00')
+      expect(timeUtils.isEndTimeOnOrBeforeBedTime(endTime, bedTime)).to.be.true
     })
 
     it('returns error message for invalid end time', () => {
@@ -83,17 +103,17 @@ describe('The babysitter time inputs', () => {
   describe('Start time sequence check', () => {
 
     it('returns true if valid order', () => {
-      expect(timeUtils.isStartTimeSequenceValid(startTime,endTime,bedTime)).to.be.true
+      expect(timeUtils.isStartTimeSequenceValid(startTime, endTime, bedTime)).to.be.true
     })
 
     it('returns false if bedTime preceeds startTime', () => {
       endTime = new Date('May 11, 2018 17:00:00')
-      expect(timeUtils.isStartTimeSequenceValid(startTime,endTime,bedTime)).to.be.false
+      expect(timeUtils.isStartTimeSequenceValid(startTime, endTime, bedTime)).to.be.false
     })
-    
+
     it('returns false if endTime preceeds startTime', () => {
       bedTime = new Date('May 11, 2018 17:00:00')
-      expect(timeUtils.isStartTimeSequenceValid(startTime,endTime,bedTime)).to.be.false
+      expect(timeUtils.isStartTimeSequenceValid(startTime, endTime, bedTime)).to.be.false
     })
 
     it('returns error message for invalid start time sequence', () => {
@@ -101,13 +121,6 @@ describe('The babysitter time inputs', () => {
       expect(timeUtils.notifyError(startTime, endTime, bedTime)).to.equal(startSequenceError)
     })
 
-  }) 
-
-  describe.skip('Bedtime sync', () => {
-
-    it('sets bedtime to endtime when endtime comes first', () => {
-
-    })
   })
-  
+
 })
