@@ -97,7 +97,6 @@ describe('The babysitter time inputs', () => {
       bedTime.setHours(5)
       expect(timeUtils.notifyError(startTime, endTime, bedTime)).to.equal(bedError)
     })
-
   })
 
   describe('Start time sequence check', () => {
