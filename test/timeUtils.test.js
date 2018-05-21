@@ -4,7 +4,7 @@ const timeUtils = require('../timeUtils.js')
 const startError = 'Error - Start time no sooner than 5:00pm'
 const endError = 'Error - End time is only valid from 5:00pm to 4:00am'
 const bedError = 'Error - Bed time must be after start time and by midnight'
-const startSequenceError = 'Error - Start time is preceeded by end or bed time'
+const startSequenceError = 'Error - Start time is preceded by end or bed time'
 
 let startTime, endTime, bedTime
 
@@ -105,12 +105,12 @@ describe('The babysitter time inputs', () => {
       expect(timeUtils.isStartTimeSequenceValid(startTime, endTime, bedTime)).to.be.true
     })
 
-    it('returns false if bedTime preceeds startTime', () => {
+    it('returns false if bedTime preceds startTime', () => {
       endTime = new Date('May 11, 2018 17:00:00')
       expect(timeUtils.isStartTimeSequenceValid(startTime, endTime, bedTime)).to.be.false
     })
 
-    it('returns false if endTime preceeds startTime', () => {
+    it('returns false if endTime preceds startTime', () => {
       bedTime = new Date('May 11, 2018 17:00:00')
       expect(timeUtils.isStartTimeSequenceValid(startTime, endTime, bedTime)).to.be.false
     })

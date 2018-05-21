@@ -23,4 +23,12 @@ describe('Calculate babysitter payment', () => {
     expect(payment.calculatePaymentTillMidnight(endTime, bedTime)).to.equal(16)
   })
 
+  it('should return the payment after midnight', () => {
+    expect(payment.calculatePaymentAfterMidnight(endTime, bedTime)).to.equal(48)
+  })
+
+  it('should return the total babysitter payment', () => {
+    expect(payment.calculatePayment(startTime, endTime, bedTime)).to.equal(112)
+  })
+  
 })
