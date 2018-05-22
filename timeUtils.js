@@ -13,11 +13,15 @@ let isEndTimeValid = (endTime) => {
 
 let isBedTimeValid = (startTime, bedTime) => {
   return bedTime.getHours() > startTime.getHours() ||
-    bedTime.getHours() == 0
+    bedTime.getHours() === 0
 }
 
 let isEndTimeOnOrBeforeBedTime = (endTime, bedTime) => {
   return endTime <= bedTime
+}
+
+let isBedTimeAtMidnight = (bedTime) => {
+  return bedTime.getHours() === 0
 }
 
 let isStartTimeSequenceValid = (startTime, endTime, bedTime) => {
@@ -46,6 +50,7 @@ module.exports = {
   isStartTimeValid: isStartTimeValid,
   isEndTimeValid: isEndTimeValid,
   isBedTimeValid: isBedTimeValid,
+  isBedTimeAtMidnight: isBedTimeAtMidnight,
   isEndTimeOnOrBeforeBedTime: isEndTimeOnOrBeforeBedTime,
   isStartTimeSequenceValid: isStartTimeSequenceValid,
   removePartialHours: removePartialHours,

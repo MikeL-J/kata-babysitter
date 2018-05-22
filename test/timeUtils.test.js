@@ -93,6 +93,11 @@ describe('The babysitter time inputs', () => {
       expect(timeUtils.isBedTimeValid(startTime, bedTime)).to.be.false
     })
 
+    it('returns true when bedtime is at midnight', () => {
+      bedTime = new Date('May 12, 2018 00:00:00')
+      expect(timeUtils.isBedTimeAtMidnight(bedTime)).to.be.true
+    })
+
     it('returns error message for invalid bed time', () => {
       bedTime.setHours(5)
       expect(timeUtils.notifyError(startTime, endTime, bedTime)).to.equal(bedError)

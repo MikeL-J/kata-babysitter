@@ -18,7 +18,7 @@ describe('Calculate babysitter payment', () => {
   it('should return the payment before bed time', () => {
     expect(payment.calculatePaymentBeforeBedTime(startTime, endTime, bedTime)).to.equal(48)
   })
-  
+
   it('should return the payment till midnight', () => {
     expect(payment.calculatePaymentTillMidnight(endTime, bedTime)).to.equal(16)
   })
@@ -30,5 +30,20 @@ describe('Calculate babysitter payment', () => {
   it('should return the total babysitter payment', () => {
     expect(payment.calculatePayment(startTime, endTime, bedTime)).to.equal(112)
   })
-  
+
+  it('should return the correct payment when end time is before bedtime', () => {
+    endTime = new Date('May 11, 2018 21:00:00')
+    expect(payment.calculatePayment(startTime, endTime, bedTime)).to.equal(36)
+  })
+
+  it('should return a payment of zero when start and end times are equal', () => {
+    endTime = new Date('May 11, 2018 18:00:00')
+    expect(payment.calculatePayment(startTime, endTime, bedTime)).to.equal(0)
+  })
+
+  it('should return the correct payment when bedtime is midnight', () => {
+    bedTime = new Date('May 12, 2018 00:00:00')
+    expect(payment.calculatePayment(startTime, endTime, bedTime)).to.equal(120)
+  })
+
 })

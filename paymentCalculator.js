@@ -3,7 +3,7 @@ const timeUtils = require('./timeUtils.js')
 const rateBeforeBedTime = 12
 const rateTillMidnight = 8
 const rateAfterMidnight = 16
-const midnight = 24
+const midnightHour = 24
 
 let calculatePayment = (startTime, endTime, bedTime) => {
   let totalPayment = calculatePaymentBeforeBedTime(startTime, endTime, bedTime) +
@@ -17,16 +17,18 @@ let calculatePaymentBeforeBedTime = (startTime, endTime, bedTime) => {
   if(timeUtils.isEndTimeOnOrBeforeBedTime(endTime, bedTime)) {
     bedTime = endTime
   } 
-  let beforeBedTimeInterval = bedTime.getHours() - startHour
-  beforeBedTimeInterval = beforeBedTimeInterval > 0 ? beforeBedTimeInterval : 0 
+  let bedTimeHour = timeUtils.isBedTimeAtMidnight(bedTime) ? midnightHour : bedTime.getHours()
+  let beforeBedTimeInterval = (bedTimeHour - startHour) > 0 ? (bedTimeHour - startHour) : 0
+
   return beforeBedTimeInterval * rateBeforeBedTime
 }
 
 let calculatePaymentTillMidnight = (endTime, bedTime) => {
-  if(timeUtils.isEndTimeOnOrBeforeBedTime(endTime, bedTime)) {
-    return 0
+  if(timeUtils.isEndTimeOnOrBeforeBedTime(endTime, bedTime) ||
+     timeUtils.isBedTimeAtMidnight(bedTime)) {
+      return 0
   } 
-  return (midnight - bedTime.getHours()) * rateTillMidnight
+  return (midnightHour - bedTime.getHours()) * rateTillMidnight
 }
 
 let calculatePaymentAfterMidnight = (endTime, bedTime) => {
