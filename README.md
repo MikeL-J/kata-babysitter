@@ -20,3 +20,11 @@ I want to calculate my nightly charge<br>*
 
 ### Usage
 Install npm packages `npm install`. Then run `npm test` to run tests.
+
+To run the application you must have `node` installed.
+
+Sample command:
+
+`node app --startTime 'May 11, 2018 18:00:00' --endTime 'May 12, 2018 03:00:00'  --bedTime 'May 11, 2018 22:00:00'`
+
+Change the time and/or date to test different outcomes.

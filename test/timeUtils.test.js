@@ -27,6 +27,11 @@ describe('The babysitter time inputs', () => {
       expect(timeUtils.isStartTimeValid(startTime)).to.be.false
     })
 
+    it('is invalid if undefined', () => {
+      startTime = undefined;
+      expect(timeUtils.isStartTimeValid(startTime)).to.be.false
+    })
+
     it('rounds to the next hour if seconds not on the hour', () => {
       startTime = new Date('May 11, 2018 18:00:01')
       expect(timeUtils.removePartialHours(startTime)).to.equal(19)
@@ -55,8 +60,18 @@ describe('The babysitter time inputs', () => {
       expect(timeUtils.isEndTimeValid(endTime)).to.be.true
     })
 
+    it('is valid at midnight', () => {
+      endTime = new Date('May 12, 2018 00:00:00')
+      expect(timeUtils.isEndTimeValid(endTime)).to.be.true
+    })
+
     it('is invalid if between 4:00am and 5:00pm', () => {
       endTime.setHours(5)
+      expect(timeUtils.isEndTimeValid(endTime)).to.be.false
+    })
+
+    it('is invalid if undefined', () => {
+      endTime = undefined;
       expect(timeUtils.isEndTimeValid(endTime)).to.be.false
     })
 
@@ -84,8 +99,8 @@ describe('The babysitter time inputs', () => {
     })
 
     it('is valid for midnight', () => {
-      bedTime.setHours(0)
-      expect(timeUtils.isBedTimeValid(startTime, bedTime)).to.be.true
+      bedTime = new Date('May 12, 2018 00:00:00')
+      expect(timeUtils.isBedTimeAtMidnight(bedTime)).to.be.true
     })
 
     it('is invalid between midnight and 5:00pm', () => {
@@ -93,9 +108,9 @@ describe('The babysitter time inputs', () => {
       expect(timeUtils.isBedTimeValid(startTime, bedTime)).to.be.false
     })
 
-    it('returns true when bedtime is at midnight', () => {
-      bedTime = new Date('May 12, 2018 00:00:00')
-      expect(timeUtils.isBedTimeAtMidnight(bedTime)).to.be.true
+    it('is invalid if undefined', () => {
+      bedTime = undefined;
+      expect(timeUtils.isBedTimeValid(bedTime)).to.be.false
     })
 
     it('returns error message for invalid bed time', () => {
@@ -110,12 +125,12 @@ describe('The babysitter time inputs', () => {
       expect(timeUtils.isStartTimeSequenceValid(startTime, endTime, bedTime)).to.be.true
     })
 
-    it('returns false if bedTime preceds startTime', () => {
+    it('returns false if bedTime precedes startTime', () => {
       endTime = new Date('May 11, 2018 17:00:00')
       expect(timeUtils.isStartTimeSequenceValid(startTime, endTime, bedTime)).to.be.false
     })
 
-    it('returns false if endTime preceds startTime', () => {
+    it('returns false if endTime precedes startTime', () => {
       bedTime = new Date('May 11, 2018 17:00:00')
       expect(timeUtils.isStartTimeSequenceValid(startTime, endTime, bedTime)).to.be.false
     })

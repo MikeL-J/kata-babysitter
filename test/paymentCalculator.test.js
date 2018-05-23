@@ -31,6 +31,16 @@ describe('Calculate babysitter payment', () => {
     expect(payment.calculatePayment(startTime, endTime, bedTime)).to.equal(112)
   })
 
+  it('should return the correct babysitter payment removing partial hours by seconds', () => {
+    startTime = new Date('May 11, 2018 18:00:01')
+    expect(payment.calculatePayment(startTime, endTime, bedTime)).to.equal(100)
+  })
+
+  it('should return the correct babysitter payment removing partial hours by minutes', () => {
+    startTime = new Date('May 11, 2018 18:01:00')
+    expect(payment.calculatePayment(startTime, endTime, bedTime)).to.equal(100)
+  })
+
   it('should return the correct payment when end time is before bedtime', () => {
     endTime = new Date('May 11, 2018 21:00:00')
     expect(payment.calculatePayment(startTime, endTime, bedTime)).to.equal(36)

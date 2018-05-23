@@ -6,6 +6,11 @@ const rateAfterMidnight = 16
 const midnightHour = 24
 
 let calculatePayment = (startTime, endTime, bedTime) => {
+  let errorResponse = timeUtils.notifyError(startTime, endTime, bedTime)
+  if (errorResponse) {
+    return 0
+  }
+
   let totalPayment = calculatePaymentBeforeBedTime(startTime, endTime, bedTime) +
     calculatePaymentTillMidnight(endTime, bedTime) +
     calculatePaymentAfterMidnight(endTime, bedTime)
